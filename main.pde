@@ -4,9 +4,9 @@
 PImage img;
 PVector[] points;
 PVector[] targets;
-int numPoints = 80000; // 生成的彩色点数量
+int numPoints = 80000; // 彩色点数量
 
-float[] sizes; // 用于存储每个粒子的大小
+float[] sizes; 
 PFont font;
 
 
@@ -22,7 +22,7 @@ void setup() {
   for (int i = 0; i < numPoints; i++) {
     points[i] = new PVector(random(width), random(height));
     targets[i] = new PVector(random(width), random(height));
-    // 为每个粒子随机分配一个大小
+    // 每个粒子随机分配大小
     sizes[i] = random(3, 9);
   }
   background(0);
@@ -39,47 +39,45 @@ void setup() {
 void draw() {
   background(0);
   for (int i = 0; i < numPoints; i++) {
-    // 在当前位置和目标位置之间插值
+    // 插值
     points[i].x = lerp(points[i].x, targets[i].x, 0.05);
     points[i].y = lerp(points[i].y, targets[i].y, 0.05);
 
-    // 获取图片中对应粒子位置的颜色
+    // 获取粒子位置的颜色
     int imgColor = img.get(int(targets[i].x), int(targets[i].y));
     fill(imgColor);
     noStroke();
     if (imgColor==0) {
       continue;
     }
-    ellipse(points[i].x, points[i].y, sizes[i], sizes[i]);// 绘制彩色点
+    ellipse(points[i].x, points[i].y, sizes[i], sizes[i]);
   }
-  // 加载字体，替换字体名称，设置字号
+
   font = createFont("方正大标宋_GBK", 48);
   textFont(font);
 
-  // 设置文字颜色和对齐方式
-  fill(255); // 文字颜色
-  textAlign(LEFT, LEFT); // 居中对齐
+  fill(255);
+  textAlign(LEFT, LEFT); 
 
-  // 绘制文字，位置在画布中心
   text("司 马 温 公 祠", width / 12, height / 5);
 
   font = createFont("方正大标宋_GBK", 24);
   textFont(font);
-  fill(255); // 文字颜色
-  textAlign(LEFT, LEFT); // 居中对齐
+  fill(255); 
+  textAlign(LEFT, LEFT); 
   text("\n5月20日——————————5月25日", width / 12, 7*height / 8);
 
   font = createFont("方正大标宋_GBK", 24);
   textFont(font);
-  fill(255); // 文字颜色
-  textAlign(RIGHT, RIGHT); // 居中对齐
+  fill(255); 
+  textAlign(RIGHT, RIGHT); 
   text("CAUP × 山西文旅\n运城古建行", 11*width / 12, 7*height / 8);
 
 
   font = createFont("华光行草_CNKI", 120);
   textFont(font);
-  fill(255, 100); // 文字颜色
-  textAlign(CENTER, CENTER); // 居中对齐
+  fill(255, 100); 
+  textAlign(CENTER, CENTER); 
   text("夏县", width / 2, height / 2);
 
 
@@ -88,14 +86,13 @@ void draw() {
 
 void keyPressed() {
   if (key == 's') {
-    exit(); // 当按 's' 键时停止程序
+    exit(); // 按 's' 停止
   }
 }
 
 void mouseClicked() {
-  // 点击鼠标重新随机目标位置和大小
   for (int i = 0; i < numPoints; i++) {
     targets[i] = new PVector(random(width), random(height));
-    sizes[i] = random(3, 9); // 重新随机粒子大小
+    sizes[i] = random(3, 9); 
   }
 }
